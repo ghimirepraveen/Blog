@@ -11,8 +11,17 @@ export const register = catchAsync(async (req: Request, res: Response) => {
   if (!email || !password || !name) {
     throw new customError("email and password are required", 400);
   }
-  const hashedPassword = await bcrypt.hash(password, 10);
 
+  const userExist = await prisma.users.findUnique({
+    where: {
+      email,
+    },
+  });
+  if (userExist) {
+    throw new customError("user already exist", 400);
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
   const user = await prisma.users.create({
     data: {
       email,
@@ -21,10 +30,16 @@ export const register = catchAsync(async (req: Request, res: Response) => {
     },
   });
 
-  const { password: _, id: undefined, ...userdata } = user;
+  const {
+    password: _,
+    id: undefined,
+    createdAt,
+    updatedAt,
+    ...userdata
+  } = user;
   console.log(userdata);
 
-  res.status(201).json(user);
+  res.status(201).json(userdata);
 });
 
 export const login = catchAsync(async (req: Request, res: Response) => {
@@ -87,9 +102,12 @@ export const me = catchAsync(async (req: Request, res: Response) => {
     where: {
       id,
     },
+    select: {
+      name: true,
+      email: true,
+    },
   });
-
-  res.status(200).json();
+  res.status(200).json(user);
 });
 
 export const logout = catchAsync(async (req: Request, res: Response) => {
