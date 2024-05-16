@@ -7,22 +7,12 @@ cloudinary.config({
   api_secret: process.env.API_Secret,
 });
 
-async function uploadPhotos(
-  photoArray: string[],
-  userId: string,
-  postId: string
-) {
-  await cloudinary.api.delete_resources_by_prefix(
-    `rentNow/${userId}/${postId}/`
-  );
-  const uploadPromises = photoArray.map((photo, index) => {
-    return cloudinary.uploader.upload(photo, {
-      folder: `rentNow/${userId}/${postId}`,
-      public_id: `${index}`,
-    });
+async function uploadPhoto(photo: string, userId: string) {
+  await cloudinary.api.delete_resources_by_prefix(`rentNow/${userId}/`);
+  const result = await cloudinary.uploader.upload(photo, {
+    folder: `Blog/${userId}/`,
   });
-  const results = await Promise.all(uploadPromises);
-  return results.map((result) => result?.secure_url);
+  return result.secure_url;
 }
 
-module.exports = uploadPhotos;
+export default uploadPhoto;

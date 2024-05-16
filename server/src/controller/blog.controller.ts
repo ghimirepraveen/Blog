@@ -3,18 +3,32 @@ import { Request, Response } from "express";
 import { prisma } from "../model/db";
 import catchAsync from "../error/catchAsync";
 import customError from "../error/customError";
+import uploadPhotos from "../config/cloudnary";
 
 export const writeBlog = catchAsync(async (req: Request, res: Response) => {
-  const { title, content } = req.body;
+  const title = req.body.title as string;
+  const content = req.body.content as string;
+  console.log(req);
+
+  const images = (req.files && Object.values(req.files)) || [];
+
   if (!title || !content) {
     throw new customError("title and content are required", 400);
   }
+  // if (images.length < 1) {
+  //   throw new customError("images should be min 1 and max 5", 400);
+  // }
+
+  // const image = images[0];
+
+  // const imageUrl = await uploadPhotos(image.tempFilePath, req.user.id);
 
   const blog = await prisma.post.create({
     data: {
       title,
       content,
       authorId: req.user.id,
+      img: "hello", //imageUrl ,
     },
   });
 

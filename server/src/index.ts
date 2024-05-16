@@ -1,20 +1,25 @@
 import express from "express";
 import dontenv from "dotenv";
-import userRouter from "./router/user.router";
-import errorHandler from "./controller/error.controller";
+
 import helmet from "helmet";
 import morgan from "morgan";
+import cookieparser from "cookie-parser";
+
+import userRouter from "./router/user.router";
+import postRouter from "./router/blog.router";
+import errorHandler from "./controller/error.controller";
 
 dontenv.config();
 
 const app = express();
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieparser());
 app.use(helmet());
-app.use(morgan("common"));
+app.use(morgan("dev"));
 
 app.use("/api/user", userRouter);
+app.use("/api/post", postRouter);
 
 app.use(errorHandler);
 
