@@ -8,7 +8,7 @@ cloudinary.config({
 });
 
 async function uploadPhoto(photo: string, userId: string) {
-  await cloudinary.api.delete_resources_by_prefix(`rentNow/${userId}/`);
+  await cloudinary.api.delete_resources_by_prefix(`Blog/${userId}/`);
   const result = await cloudinary.uploader.upload(photo, {
     folder: `Blog/${userId}/`,
   });

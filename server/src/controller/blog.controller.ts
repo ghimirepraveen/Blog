@@ -38,6 +38,7 @@ export const writeBlog = catchAsync(async (req: Request, res: Response) => {
 export const getBlogs = catchAsync(async (req: Request, res: Response) => {
   const blogs = await prisma.post.findMany({
     select: {
+      id: true,
       title: true,
       content: true,
       createdAt: true,
@@ -58,6 +59,7 @@ export const getBlog = catchAsync(async (req: Request, res: Response) => {
       id: id,
     },
     select: {
+      id: true,
       title: true,
       content: true,
       createdAt: true,
@@ -118,6 +120,7 @@ export const deleteBlog = catchAsync(async (req: Request, res: Response) => {
       id: id,
     },
   });
+
   res.status(204).json("successfully deleted blog");
 });
 //write a end point such that it will search for a blog with a specific title

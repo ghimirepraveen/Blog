@@ -13,12 +13,12 @@ const blogRouter = Router();
 
 blogRouter.get("/", getBlogs);
 blogRouter.get("/:id", getBlog);
-blogRouter.get("/search", searchBlog);
+blogRouter.get("/search", searchBlog); //not working
 
 blogRouter.use(auth);
 
 blogRouter.post("/create", writeBlog);
 blogRouter.put("/update/:id", updateBlog);
-blogRouter.delete("delete/:id", deleteBlog);
+blogRouter.delete("/delete/:id", deleteBlog);
 
 export default blogRouter;
