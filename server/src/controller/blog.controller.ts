@@ -10,7 +10,7 @@ export const writeBlog = catchAsync(async (req: Request, res: Response) => {
   const content = req.body.content as string;
   console.log(req);
 
-  const images = (req.files && Object.values(req.files)) || [];
+  // const images = (req.files && Object.values(req.files)) || [];
 
   if (!title || !content) {
     throw new customError("title and content are required", 400);
