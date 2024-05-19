@@ -110,6 +110,70 @@ export const me = catchAsync(async (req: Request, res: Response) => {
   res.status(200).json(user);
 });
 
+export const updateMe = catchAsync(async (req: Request, res: Response) => {
+  const id = req.user?.id as string;
+  const { name, email } = req.body;
+  const user = await prisma.users.update({
+    where: {
+      id,
+    },
+    data: {
+      name,
+      email,
+    },
+  });
+  res.status(200).json(user);
+});
+
+export const deleteMe = catchAsync(async (req: Request, res: Response) => {
+  const id = req.user?.id as string;
+  await prisma.users.delete({
+    where: {
+      id,
+    },
+  });
+  res.status(200).json({ message: "user deleted" });
+});
+
+export const forgetPassword = catchAsync(
+  async (req: Request, res: Response) => {
+    const userId = req.user?.id as string;
+    const user = await prisma.users.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!user) {
+      throw new customError("user not found", 404);
+    }
+
+    const { oldPassword, newPassword } = req.body;
+
+    if (!oldPassword || !newPassword) {
+      throw new customError("oldPassword and newPassword are required", 400);
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      throw new customError("invalid old password", 401);
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await prisma.users.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        password: hashedPassword,
+      },
+    });
+
+    res.status(200).json({ message: "password reset link sent to email" });
+  }
+);
+
 export const logout = catchAsync(async (req: Request, res: Response) => {
   res
     .status(200)

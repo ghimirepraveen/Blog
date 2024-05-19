@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { CgProfile } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
-import { Axios } from "axios";
+
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -11,7 +11,7 @@ const Navbar = () => {
 
   const handleSearch = async (query) => {
     if (query) {
-      const response = await Axios(`search?query=${query}`);
+      const response = await fetch(`search?query=${query}`);
       const data = await response.json();
       console.log(data);
     }
