@@ -1,3 +1,4 @@
+import { axios } from "axios";
 import { useState, useEffect, useRef } from "react";
 import { CgProfile } from "react-icons/cg";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,7 +17,7 @@ const Navbar = () => {
 
   const handleSearch = async (query) => {
     if (query) {
-      const response = await fetch(`search?query=${query}`);
+      const response = await axios.post(`search?query=${query}`);
       const data = await response.json();
       console.log(data);
     }
