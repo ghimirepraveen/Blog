@@ -107,6 +107,7 @@ export const me = catchAsync(async (req: Request, res: Response) => {
       email: true,
       posts: {
         select: {
+          id: true,
           title: true,
           content: true,
           img: true,
@@ -119,14 +120,13 @@ export const me = catchAsync(async (req: Request, res: Response) => {
 
 export const updateMe = catchAsync(async (req: Request, res: Response) => {
   const id = req.user?.id as string;
-  const { name, email } = req.body;
+  const { name } = req.body;
   const user = await prisma.users.update({
     where: {
       id,
     },
     data: {
       name,
-      email,
     },
   });
   res.status(200).json(user);
@@ -142,7 +142,7 @@ export const deleteMe = catchAsync(async (req: Request, res: Response) => {
   res.status(200).json({ message: "user deleted" });
 });
 
-export const forgetPassword = catchAsync(
+export const changePassword = catchAsync(
   async (req: Request, res: Response) => {
     const userId = req.user?.id as string;
     const user = await prisma.users.findUnique({

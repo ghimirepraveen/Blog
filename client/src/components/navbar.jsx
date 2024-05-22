@@ -48,12 +48,36 @@ const Navbar = () => {
     return () => clearTimeout(debounceTimeoutRef.current);
   }, [searchTerm]);
 
+  //if someone clicks on the login button then cleck if its logined already or not
+
   const handleLoginClick = () => {
-    history("/login");
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      alert("You are already logged in.");
+    } else {
+      history("/login");
+    }
   };
 
   const handleSignupClick = () => {
-    history("/signup");
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      alert("You are already logged in.");
+    } else {
+      history("/signup");
+    }
+  };
+
+  const handelProile = () => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      history("/profile");
+    } else {
+      alert("Please login first");
+    }
   };
 
   return (
@@ -110,12 +134,12 @@ const Navbar = () => {
                   Logout
                 </button>
                 <button>
-                  <Link
-                    to="/profile"
+                  <button
+                    onClick={handelProile}
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                   >
                     Profile
-                  </Link>
+                  </button>
                 </button>
               </div>
             )}
