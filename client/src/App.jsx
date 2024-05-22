@@ -9,6 +9,8 @@ import Home from "./pages/home";
 import Detail from "./pages/details";
 import Profile from "./pages/profile";
 import ChangePassword from "./pages/changepassword";
+import Write from "./pages/write";
+
 function App() {
   return (
     <>
@@ -23,6 +25,7 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/changepassword" element={<ChangePassword />} />
+          <Route path="/write" element={<Write />} />
           <Route path="*" element={<h1>Not Found</h1>} />
 
           {/* <Route path="/write" element= /> */}

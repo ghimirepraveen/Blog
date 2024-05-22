@@ -5,8 +5,23 @@ import {
   FaGithub,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const handleWriteBlogClick = (e) => {
+    e.preventDefault(); // Prevent default link behavior
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("You need to be logged in to write a blog.");
+      navigate("/login");
+    } else {
+      navigate("/write");
+    }
+  };
+
   return (
     <footer className="bg-gray-800 text-white py-8 bottom-0 w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between">
@@ -22,7 +37,7 @@ const Footer = () => {
               <Link to="/" className="text-sm">
                 Home
               </Link>
-              <Link to="/write" className="text-sm">
+              <Link to="#" onClick={handleWriteBlogClick} className="text-sm">
                 Write a Blog
               </Link>
               <Link to="/profile" className="text-sm">
@@ -39,7 +54,6 @@ const Footer = () => {
               <a href="#" className="text-sm">
                 <FaFacebook size={30} />
               </a>
-
               <a href="#" className="text-sm">
                 <FaInstagram size={30} />
               </a>

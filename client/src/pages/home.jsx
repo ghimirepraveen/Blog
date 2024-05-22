@@ -1,4 +1,3 @@
-// src/pages/Home.js or src/pages/Home.tsx
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { format } from "date-fns";
@@ -39,9 +38,15 @@ const Home = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
+  const isCentered = cards.length <= 2;
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
-      <div className="flex flex-wrap justify-center max-w-6xl">
+      <div
+        className={`flex flex-wrap justify-center w-full ${
+          isCentered ? "mx-auto" : ""
+        }`}
+      >
         {cards.map((card, index) => (
           <div key={index} className="w-full sm:w-1/2 lg:w-1/3 p-2">
             <Link to={`/detail/${card.id}`}>
@@ -55,7 +60,7 @@ const Home = () => {
           </div>
         ))}
       </div>
-      <div className="mt-4 flex justify-center">
+      <div className="mt-4 flex justify-center mx-auto">
         <button
           onClick={handlePreviousPage}
           disabled={currentPage === 1}
