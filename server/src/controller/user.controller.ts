@@ -105,6 +105,13 @@ export const me = catchAsync(async (req: Request, res: Response) => {
     select: {
       name: true,
       email: true,
+      posts: {
+        select: {
+          title: true,
+          content: true,
+          img: true,
+        },
+      },
     },
   });
   res.status(200).json(user);

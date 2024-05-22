@@ -6,18 +6,20 @@ import LoginForm from "./pages/login";
 import Navbar from "./components/navbar";
 import Footer from "./components/foooter";
 import Home from "./pages/home";
+import Detail from "./pages/details";
+import Profile from "./pages/profile";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Navbar />
-        <Home />
-
         <Routes>
-          <Route path="/" />
+          <Route path="/" element={<Home />} />
+          <Route path="/detail/:id" element={<Detail />} />
           <Route path="/signup" element={<SignUpForm />} />
           <Route path="/login" element={<LoginForm />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
         <Footer />
       </BrowserRouter>

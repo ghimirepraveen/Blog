@@ -3,32 +3,25 @@ import { Request, Response } from "express";
 import { prisma } from "../model/db";
 import catchAsync from "../error/catchAsync";
 import customError from "../error/customError";
-import uploadPhotos from "../config/cloudnary";
+import uploadPhoto from "../config/cloudnary";
 
 export const writeBlog = catchAsync(async (req: Request, res: Response) => {
   const title = req.body.title as string;
   const content = req.body.content as string;
-  console.log(req);
 
-  // const images = (req.files && Object.values(req.files)) || [];
+  let imgUrl;
+  if (req.file) imgUrl = await uploadPhoto(req.file);
 
   if (!title || !content) {
     throw new customError("title and content are required", 400);
   }
-  // if (images.length < 1) {
-  //   throw new customError("images should be min 1 and max 5", 400);
-  // }
-
-  // const image = images[0];
-
-  // const imageUrl = await uploadPhotos(image.tempFilePath, req.user.id);
 
   const blog = await prisma.post.create({
     data: {
       title,
       content,
       authorId: req.user.id,
-      img: "hello", //imageUrl ,
+      img: imgUrl,
     },
   });
 
@@ -36,20 +29,39 @@ export const writeBlog = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const getBlogs = catchAsync(async (req: Request, res: Response) => {
-  const blogs = await prisma.post.findMany({
-    select: {
-      id: true,
-      title: true,
-      content: true,
-      createdAt: true,
-      author: {
-        select: {
-          name: true,
+  const page = parseInt(req.query.page as string, 10) || 1;
+  const limit = parseInt(req.query.limit as string, 10) || 10;
+  const skip = (page - 1) * limit;
+
+  const [totalBlogs, blogs] = await Promise.all([
+    prisma.post.count(),
+    prisma.post.findMany({
+      skip,
+      take: limit,
+
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        img: true,
+        createdAt: true,
+        author: {
+          select: {
+            name: true,
+          },
         },
       },
-    },
+    }),
+  ]);
+
+  const totalPages = Math.ceil(totalBlogs / limit);
+
+  res.status(200).json({
+    totalBlogs,
+    totalPages,
+    currentPage: page,
+    blogs,
   });
-  res.status(200).json(blogs);
 });
 
 export const getBlog = catchAsync(async (req: Request, res: Response) => {
@@ -62,7 +74,9 @@ export const getBlog = catchAsync(async (req: Request, res: Response) => {
       id: true,
       title: true,
       content: true,
+      img: true,
       createdAt: true,
+
       author: {
         select: {
           name: true,
@@ -123,7 +137,6 @@ export const deleteBlog = catchAsync(async (req: Request, res: Response) => {
 
   res.status(204).json("successfully deleted blog");
 });
-//write a end point such that it will search for a blog with a specific title
 
 export const searchBlog = catchAsync(async (req: Request, res: Response) => {
   const { title } = req.query;

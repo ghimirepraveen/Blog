@@ -29,7 +29,7 @@ const LoginForm = () => {
 
       localStorage.setItem("token", response.data.token);
 
-      navigate("/profile");
+      navigate("/");
     } catch (error) {
       if (error.response) {
         const backendErrorMessage =
@@ -87,7 +87,7 @@ const LoginForm = () => {
         </form>
         <p className="text-sm text-center">
           Don&apos;t have an account?{" "}
-          <Link to="/" className="text-indigo-600">
+          <Link to="/signup" className="text-indigo-600">
             Sign up
           </Link>
         </p>
