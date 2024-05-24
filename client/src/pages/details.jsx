@@ -35,7 +35,7 @@ const Detail = () => {
         <img
           src={card.img}
           alt={card.title}
-          className="w-full h-full object-cover"
+          className="w-full h-screen object-cover"
         />
         <div className="p-4">
           <h2 className="text-2xl text-center font-bold mb-2">{card.title}</h2>

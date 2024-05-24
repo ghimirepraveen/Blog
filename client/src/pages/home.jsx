@@ -38,26 +38,18 @@ const Home = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
-  const isCentered = cards.length <= 2;
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
-      <div
-        className={`flex flex-wrap justify-center w-full ${
-          isCentered ? "mx-auto" : ""
-        }`}
-      >
+    <div className="flex flex-col items-center justify-center min-h-screen mx-16 p-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 w-full ">
         {cards.map((card, index) => (
-          <div key={index} className="w-full sm:w-1/2 lg:w-1/3 p-2">
-            <Link to={`/detail/${card.id}`}>
-              <Card
-                image={card.img}
-                title={card.title}
-                author={card.author.name}
-                date={card.createdAt}
-              />
-            </Link>
-          </div>
+          <Link key={index} to={`/detail/${card.id}`}>
+            <Card
+              image={card.img}
+              title={card.title}
+              author={card.author.name}
+              date={card.createdAt}
+            />
+          </Link>
         ))}
       </div>
       <div className="mt-4 flex justify-center mx-auto">
