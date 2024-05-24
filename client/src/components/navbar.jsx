@@ -1,25 +1,30 @@
-import { Axios } from "axios";
 import { useState, useEffect, useRef } from "react";
 import { CgProfile } from "react-icons/cg";
 import { Link, useNavigate } from "react-router-dom";
+import Axios from "axios";
 
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const debounceTimeoutRef = useRef(null);
-  const history = useNavigate();
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
   const handleLogoutClick = () => {
-    localStorage.removeItem("token");
-    history("/");
+    if (isLoggedIn) {
+      localStorage.removeItem("token");
+      setIsLoggedIn(false);
+      navigate("/");
+    } else {
+      alert("You are not logged in.");
+    }
   };
 
   const handleSearch = async (query) => {
     if (query) {
       const response = await Axios.post(`search?query=${query}`);
-      const data = await response.json();
-      console.log(data);
+      console.log(response.data);
     }
   };
 
@@ -48,33 +53,25 @@ const Navbar = () => {
     return () => clearTimeout(debounceTimeoutRef.current);
   }, [searchTerm]);
 
-  //if someone clicks on the login button then cleck if its logined already or not
-
   const handleLoginClick = () => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
+    if (isLoggedIn) {
       alert("You are already logged in.");
     } else {
-      history("/login");
+      navigate("/login");
     }
   };
 
   const handleSignupClick = () => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
+    if (isLoggedIn) {
       alert("You are already logged in.");
     } else {
-      history("/signup");
+      navigate("/signup");
     }
   };
 
-  const handelProile = () => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      history("/profile");
+  const handleProfileClick = () => {
+    if (isLoggedIn) {
+      navigate("/profile");
     } else {
       alert("Please login first");
     }
@@ -85,7 +82,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="font-bold ">
+            <Link to="/" className="font-bold">
               <h4 className="text-4xl">
                 <span className="text-indigo-500">Bl</span>
                 <span>og</span>
@@ -114,7 +111,19 @@ const Navbar = () => {
               <CgProfile size={30} />
             </button>
             {dropdownOpen && (
-              <div className="origin-top-right absolute right-0 mt-20 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
+              <div className="origin-top-right absolute right-0 mt-36 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
+                <button
+                  onClick={handleProfileClick}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                >
+                  Profile
+                </button>
+                <button
+                  onClick={handleLogoutClick}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                >
+                  Logout
+                </button>
                 <button
                   onClick={handleLoginClick}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
@@ -126,20 +135,6 @@ const Navbar = () => {
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                 >
                   Sign Up
-                </button>
-                <button
-                  onClick={handleLogoutClick}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                >
-                  Logout
-                </button>
-                <button>
-                  <button
-                    onClick={handelProile}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                  >
-                    Profile
-                  </button>
                 </button>
               </div>
             )}

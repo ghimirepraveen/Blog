@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
 import { useNavigate } from "react-router-dom";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const Write = () => {
   const [image, setImage] = useState(null);
@@ -43,7 +45,6 @@ const Write = () => {
   const TOKEN = localStorage.getItem("token");
   const headers = {
     Authorization: `Bearer ${TOKEN}`,
-    contentType: "multipart/form-data",
   };
 
   const handleSubmit = async (e) => {
@@ -58,7 +59,7 @@ const Write = () => {
       const response = await axios.post(
         "http://localhost:8000/api/post/create",
         formData,
-        { headers }
+        { headers: { ...headers, "Content-Type": "multipart/form-data" } }
       );
 
       if (response.data && response.data.id) {
@@ -82,7 +83,7 @@ const Write = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 m-8">
       <div className="mt-10">
         <h1 className="text-2xl font-bold">Write a Blog</h1>
         <form className="mt-4" onSubmit={handleSubmit}>
@@ -106,11 +107,11 @@ const Write = () => {
               )}
             </div>
             {imagePreview && (
-              <div className="mt-4">
+              <div className="mt-4 w-full">
                 <img
                   src={imagePreview}
                   alt="Image Preview"
-                  className="max-h-64 rounded-md shadow-md"
+                  className="w-full h-auto rounded-md shadow-md"
                 />
               </div>
             )}
@@ -131,12 +132,26 @@ const Write = () => {
             <label className="block text-sm font-medium text-gray-700">
               Content
             </label>
-            <textarea
+            <ReactQuill
               className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-              rows="10"
               value={content}
-              onChange={(e) => setContent(e.target.value)}
-            ></textarea>
+              onChange={setContent}
+              modules={{
+                toolbar: [
+                  [{ header: "1" }, { header: "2" }, { font: [] }],
+                  [{ size: [] }],
+                  ["bold", "italic", "underline", "strike", "blockquote"],
+                  [
+                    { list: "ordered" },
+                    { list: "bullet" },
+                    { indent: "-1" },
+                    { indent: "+1" },
+                  ],
+                  ["link", "image"],
+                  ["clean"],
+                ],
+              }}
+            />
           </div>
           {error && <div className="text-red-500 mb-4">{error}</div>}
           <button

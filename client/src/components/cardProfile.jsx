@@ -21,9 +21,16 @@ const CardWrapper = ({ post, author }) => {
         { headers }
       );
 
-      console.log(response);
+      if (response.status === 200) {
+        console.log("Post deleted successfully");
+        window.location.reload(); // Reload the page to show the changed data
+      } else {
+        console.error("Failed to delete the post", response);
+        alert("Failed to delete the post: " + response.statusText);
+      }
     } catch (error) {
       console.error("Error deleting data:", error);
+      alert("Error deleting data: " + error.message);
     }
   };
 

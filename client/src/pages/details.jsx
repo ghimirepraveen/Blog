@@ -39,11 +39,12 @@ const Detail = () => {
         />
         <div className="p-4">
           <h2 className="text-2xl text-center font-bold mb-2">{card.title}</h2>
-
           <p className="text-sm text-gray-600 mb-2">by {card.author.name}</p>
           <p className="text-sm text-gray-600 mb-4">{formattedCreatedAt}</p>
-
-          <div className="text-gray-800 p-6">{card.content}</div>
+          <div
+            className="text-gray-800 p-6"
+            dangerouslySetInnerHTML={{ __html: card.content }}
+          />
         </div>
       </div>
     </div>
