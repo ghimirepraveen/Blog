@@ -177,7 +177,7 @@ export const changePassword = catchAsync(
       },
     });
 
-    res.status(200).json({ message: "password reset link sent to email" });
+    res.status(200).json({ message: "password changed" });
   }
 );
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import CardWrapper from "../components/cardProfile";
+import { Link } from "react-router-dom";
 
 import Loading from "../components/loading";
 
@@ -118,6 +119,13 @@ const Profile = () => {
           )}
         </div>
         <p className="mb-4 mr-9">Email: {user.email}</p>
+      </div>
+      <div>
+        <button className="bg-red-500 text-white px-4 py-2 rounded">
+          <Link to="/changepassword" className="text-sm">
+            Change Password
+          </Link>
+        </button>
       </div>
       {user.posts && user.posts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

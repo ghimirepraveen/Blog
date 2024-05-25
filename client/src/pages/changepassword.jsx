@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 const ChangePassword = () => {
   const [formData, setFormData] = useState({
-    oldpassword: "",
-    newpassword: "",
+    oldPassword: "",
+    newPassword: "",
   });
 
   const [backendError, setBackendError] = useState(null);
@@ -23,15 +23,23 @@ const ChangePassword = () => {
     e.preventDefault();
 
     try {
+      const TOKEN = localStorage.getItem("token");
+
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${TOKEN}`,
+      };
+
       const response = await Axios.post(
         "http://localhost:8000/api/user/changepassword",
-        formData
+        formData,
+        { headers }
       );
 
       const token = response.data.token;
 
       localStorage.setItem("token", token);
-      navigate("/"); // Correctly navigate to the home page
+      navigate("/login");
     } catch (error) {
       if (error.response) {
         const backendErrorMessage =
@@ -58,8 +66,8 @@ const ChangePassword = () => {
             </label>
             <input
               type="password"
-              name="oldpassword"
-              value={formData.oldpassword} // Use correct state variable
+              name="oldPassword"
+              value={formData.oldPassword}
               onChange={handleChange}
               required
               className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
@@ -71,8 +79,8 @@ const ChangePassword = () => {
             </label>
             <input
               type="password"
-              name="newpassword"
-              value={formData.newpassword} // Use correct state variable
+              name="newPassword"
+              value={formData.newPassword}
               onChange={handleChange}
               required
               className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
