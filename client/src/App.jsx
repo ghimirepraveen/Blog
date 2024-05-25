@@ -10,6 +10,7 @@ import Detail from "./pages/details";
 import Profile from "./pages/profile";
 import ChangePassword from "./pages/changepassword";
 import Write from "./pages/write";
+import NotFound from "./pages/notfound";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/changepassword" element={<ChangePassword />} />
           <Route path="/write" element={<Write />} />
-          <Route path="*" element={<h1>Not Found</h1>} />
+          <Route path="*" element={<NotFound />} />
 
           {/* <Route path="/write" element= /> */}
         </Routes>
