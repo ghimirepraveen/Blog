@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import CardWrapper from "../components/cardProfile";
 
+import Loading from "../components/loading";
+
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [isEditingName, setIsEditingName] = useState(false);
@@ -77,9 +79,8 @@ const Profile = () => {
   };
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
-
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between">

@@ -107,11 +107,11 @@ const Write = () => {
               )}
             </div>
             {imagePreview && (
-              <div className="mt-4 w-full">
+              <div className="mt-4">
                 <img
                   src={imagePreview}
                   alt="Image Preview"
-                  className="w-full h-auto rounded-md shadow-md"
+                  className="w-full  rounded-md shadow-md"
                 />
               </div>
             )}
