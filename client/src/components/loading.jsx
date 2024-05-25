@@ -1,7 +1,6 @@
-//import a json file for amination
+import { useEffect } from "react";
 import lottie from "lottie-web";
 import loading from "../assets/Animation - 1716530599669.json";
-import React, { useEffect } from "react";
 
 const Loading = () => {
   useEffect(() => {
@@ -11,14 +10,14 @@ const Loading = () => {
       loop: true,
       autoplay: true,
       animationData: loading,
-      overflowHidden: true,
     });
   }, []);
 
   return (
-    <div className="flex justify-center  items-center h-1/2 overflow-hidden">
-      <div id="loading"></div>
+    <div className="flex justify-center items-center h-screen">
+      <div id="loading" className="w-full h-full max-w-lg max-h-lg"></div>
     </div>
   );
 };
+
 export default Loading;

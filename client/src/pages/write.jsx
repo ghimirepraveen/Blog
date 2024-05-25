@@ -11,6 +11,7 @@ const Write = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,6 +51,7 @@ const Write = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
     const formData = new FormData();
     formData.append("image", image);
     formData.append("title", title);
@@ -79,6 +81,8 @@ const Write = () => {
       } else {
         setError("An error occurred while submitting the form");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -107,11 +111,11 @@ const Write = () => {
               )}
             </div>
             {imagePreview && (
-              <div className="mt-4">
+              <div className="mt-4 w-full flex justify-center">
                 <img
                   src={imagePreview}
                   alt="Image Preview"
-                  className="w-full  rounded-md shadow-md"
+                  className="max-w-xs max-h-60 rounded-md shadow-md"
                 />
               </div>
             )}
@@ -147,7 +151,7 @@ const Write = () => {
                     { indent: "-1" },
                     { indent: "+1" },
                   ],
-                  ["link", "image"],
+                  ["link"],
                   ["clean"],
                 ],
               }}
@@ -157,8 +161,9 @@ const Write = () => {
           <button
             type="submit"
             className="bg-blue-500 text-white px-4 py-2 rounded-md"
+            disabled={loading}
           >
-            Submit
+            {loading ? "Submitting..." : "Submit"}
           </button>
         </form>
       </div>
