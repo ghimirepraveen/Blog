@@ -11,7 +11,7 @@ const Detail = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/post/${id}`
+          `http://localhost:8000/api/post/getbyid/${id}`
         );
         setCard(response.data);
       } catch (error) {
@@ -36,7 +36,7 @@ const Detail = () => {
           <img
             src={card.img}
             alt={card.title}
-            className="w-full h-full object-contain" // Adjusted to object-contain
+            className="w-full h-full object-contain"
           />
         </div>
         <div className="p-4">

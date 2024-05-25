@@ -4,6 +4,7 @@ import { prisma } from "../model/db";
 import catchAsync from "../error/catchAsync";
 import customError from "../error/customError";
 import uploadPhoto from "../config/cloudnary";
+import auth from "../middleware/auth";
 
 export const writeBlog = catchAsync(async (req: Request, res: Response) => {
   const title = req.body.title as string;
@@ -140,19 +141,28 @@ export const deleteBlog = catchAsync(async (req: Request, res: Response) => {
 
 export const searchBlog = catchAsync(async (req: Request, res: Response) => {
   const { title } = req.query;
+  console.log("title");
+
   if (!title) {
     throw new customError("title is required", 400);
   }
-  const blog = await prisma.post.findMany({
-    where: {
-      title: {
-        contains: title.toString(),
-      },
-    },
+
+  const whereClause: any = {
+    OR: [
+      { title: { contains: title as string, mode: "insensitive" } },
+      { content: { contains: title as string, mode: "insensitive" } },
+      { author: { name: { contains: title as string, mode: "insensitive" } } },
+    ],
+  };
+
+  const blogs = await prisma.post.findMany({
+    where: whereClause,
     select: {
+      id: true,
       title: true,
       content: true,
       createdAt: true,
+      img: true,
       author: {
         select: {
           name: true,
@@ -160,8 +170,10 @@ export const searchBlog = catchAsync(async (req: Request, res: Response) => {
       },
     },
   });
-  if (!blog) {
+
+  if (blogs.length === 0) {
     throw new customError("blog not found", 404);
   }
-  res.status(200).json(blog);
+
+  res.status(200).json(blogs);
 });

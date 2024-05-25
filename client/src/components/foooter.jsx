@@ -11,7 +11,7 @@ const Footer = () => {
   const navigate = useNavigate();
 
   const handleWriteBlogClick = (e) => {
-    e.preventDefault(); // Prevent default link behavior
+    e.preventDefault();
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -27,7 +27,12 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between">
         <div className="w-1/3">
           <h3 className="text-lg font-bold">About Us</h3>
-          <p className="text-sm mt-2">This is a blog website.</p>
+          <p className="text-sm mt-2">
+            Welcome to BlogMaster, your destination for engaging blog posts
+            across various topics. Discover articles on technology, lifestyle,
+            travel, and more, written by passionate authors. Explore, read, and
+            get inspired with BlogMaster!
+          </p>
         </div>
 
         <div className="w-1/3 flex justify-center">
@@ -51,16 +56,32 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-bold">Social Media</h3>
             <div className="flex space-x-4 mt-2">
-              <a href="#" className="text-sm">
+              <a
+                href="https://www.facebook.com/mepraveenghimire/"
+                target="_blank"
+                className="text-sm"
+              >
                 <FaFacebook size={30} />
               </a>
-              <a href="#" className="text-sm">
+              <a
+                href="https://www.instagram.com/__smilence__/"
+                target="_blank"
+                className="text-sm"
+              >
                 <FaInstagram size={30} />
               </a>
-              <a href="#" className="text-sm">
+              <a
+                href="https://www.linkedin.com/in/praveen-ghimire/"
+                target="_blank"
+                className="text-sm"
+              >
                 <FaLinkedinIn size={30} />
               </a>
-              <a href="#" className="text-sm">
+              <a
+                href="https://github.com/ghimirepraveen"
+                target="_blank"
+                className="text-sm"
+              >
                 <FaGithub size={30} />
               </a>
             </div>

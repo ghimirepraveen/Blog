@@ -16,9 +16,12 @@ const Home = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("http://localhost:8000/api/post", {
-          params: { page: currentPage, limit: cardsPerPage },
-        });
+        const response = await axios.get(
+          "http://localhost:8000/api/post/getall",
+          {
+            params: { page: currentPage, limit: cardsPerPage },
+          }
+        );
         const formattedBlogs = response.data.blogs.map((blog) => ({
           ...blog,
           createdAt: format(new Date(blog.createdAt), "PPpp"),

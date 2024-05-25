@@ -151,7 +151,7 @@ const Write = () => {
                     { indent: "-1" },
                     { indent: "+1" },
                   ],
-                  ["link"],
+                  ["link", "image"],
                   ["clean"],
                 ],
               }}

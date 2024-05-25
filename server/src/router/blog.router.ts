@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { Request, Response } from "express";
 import {
   writeBlog,
   deleteBlog,
@@ -12,10 +13,9 @@ import uploadToMemory from "../config/multer";
 
 const blogRouter = Router();
 
-blogRouter.get("/", getBlogs);
-blogRouter.get("/:id", getBlog);
-blogRouter.get("/search", searchBlog); //not working
-
+blogRouter.get("/getall", getBlogs);
+blogRouter.get("/getbyid/:id", getBlog);
+blogRouter.get("/searchh", searchBlog);
 blogRouter.use(auth);
 
 blogRouter.post("/create", uploadToMemory.single("image"), writeBlog);

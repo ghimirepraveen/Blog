@@ -1,4 +1,3 @@
-import { Axios } from "axios";
 import { useState, useEffect, useRef } from "react";
 import { CgProfile } from "react-icons/cg";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,18 +7,16 @@ const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const debounceTimeoutRef = useRef(null);
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogoutClick = () => {
     localStorage.removeItem("token");
-    history("/");
+    navigate("/");
   };
 
-  const handleSearch = async (query) => {
+  const handleSearch = (query) => {
     if (query) {
-      const response = await Axios.post(`search?query=${query}`);
-      const data = await response.json();
-      console.log(data);
+      navigate(`/search/${query}`);
     }
   };
 
@@ -43,12 +40,15 @@ const Navbar = () => {
     }
     debounceTimeoutRef.current = setTimeout(() => {
       handleSearch(searchTerm);
-    }, 3000);
+    }, 1000);
 
     return () => clearTimeout(debounceTimeoutRef.current);
   }, [searchTerm]);
 
-  //if someone clicks on the login button then cleck if its logined already or not
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    handleSearch(searchTerm);
+  };
 
   const handleLoginClick = () => {
     const token = localStorage.getItem("token");
@@ -56,7 +56,7 @@ const Navbar = () => {
     if (token) {
       alert("You are already logged in.");
     } else {
-      history("/login");
+      navigate("/login");
     }
   };
 
@@ -66,15 +66,15 @@ const Navbar = () => {
     if (token) {
       alert("You are already logged in.");
     } else {
-      history("/signup");
+      navigate("/signup");
     }
   };
 
-  const handelProile = () => {
+  const handleProfile = () => {
     const token = localStorage.getItem("token");
 
     if (token) {
-      history("/profile");
+      navigate("/profile");
     } else {
       alert("Please login first");
     }
@@ -85,7 +85,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="font-bold ">
+            <Link to="/" className="font-bold">
               <h4 className="text-4xl">
                 <span className="text-indigo-500">Bl</span>
                 <span>og</span>
@@ -94,7 +94,7 @@ const Navbar = () => {
           </div>
           <div className="flex w-80 items-center">
             <form
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleFormSubmit}
               className="flex w-full max-w-md mx-auto"
             >
               <input
@@ -133,13 +133,11 @@ const Navbar = () => {
                 >
                   Logout
                 </button>
-                <button>
-                  <button
-                    onClick={handelProile}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                  >
-                    Profile
-                  </button>
+                <button
+                  onClick={handleProfile}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                >
+                  Profile
                 </button>
               </div>
             )}

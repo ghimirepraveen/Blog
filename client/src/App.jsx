@@ -11,6 +11,7 @@ import Profile from "./pages/profile";
 import ChangePassword from "./pages/changepassword";
 import Write from "./pages/write";
 import NotFound from "./pages/notfound";
+import SearchResults from "./components/SearchResults";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/detail/:id" element={<Detail />} />
-
+          <Route path="/search/:query" element={<SearchResults />} />
           <Route path="/signup" element={<SignUpForm />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/profile" element={<Profile />} />
