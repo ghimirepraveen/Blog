@@ -10,15 +10,10 @@ import userRouter from "./router/user.router";
 import postRouter from "./router/blog.router";
 import errorHandler from "./controller/error.controller";
 
-const corsOptions = {
-  origin: "https://blog-client-2q4k.onrender.com/",
-  credentials: true,
-};
-
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(cookieparser());
 app.use(helmet());
