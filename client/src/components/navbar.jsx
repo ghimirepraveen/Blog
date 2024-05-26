@@ -114,10 +114,10 @@ const Navbar = () => {
               <CgProfile size={30} />
             </button>
             {dropdownOpen && (
-              <div className="origin-top-right absolute right-0 mt-20 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
+              <div className="origin-top-right absolute right-0 mt-36 w-48  rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
                 <button
                   onClick={handleLoginClick}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full  text-left"
                 >
                   Login
                 </button>
@@ -129,13 +129,14 @@ const Navbar = () => {
                 </button>
                 <button
                   onClick={handleLogoutClick}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                  className="block px-4 py-2 text-sm  text-gray-700 hover:bg-gray-100 w-full text-left"
                 >
                   Logout
                 </button>
                 <button
                   onClick={handleProfile}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left
+                  "
                 >
                   Profile
                 </button>

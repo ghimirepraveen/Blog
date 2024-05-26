@@ -46,6 +46,17 @@ export const getBlogs = catchAsync(async (req: Request, res: Response) => {
         content: true,
         img: true,
         createdAt: true,
+
+        comments: {
+          select: {
+            content: true,
+            author: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
         author: {
           select: {
             name: true,
@@ -77,6 +88,16 @@ export const getBlog = catchAsync(async (req: Request, res: Response) => {
       content: true,
       img: true,
       createdAt: true,
+      comments: {
+        select: {
+          content: true,
+          author: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
 
       author: {
         select: {
@@ -166,6 +187,16 @@ export const searchBlog = catchAsync(async (req: Request, res: Response) => {
       author: {
         select: {
           name: true,
+        },
+      },
+      comments: {
+        select: {
+          content: true,
+          author: {
+            select: {
+              name: true,
+            },
+          },
         },
       },
     },
