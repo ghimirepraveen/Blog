@@ -23,20 +23,21 @@ export const writeComment = catchAsync(async (req: Request, res: Response) => {
   res.status(201).json(comment);
 });
 
-export const getComment = catchAsync(async (req: Request, res: Response) => {
+export const updateComment = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const comment = await prisma.comment.findUnique({
+  const { content } = req.body;
+  if (!content) {
+    throw new customError("content is required", 400);
+  }
+
+  const comment = await prisma.comment.update({
     where: {
       id: id,
     },
-    select: {
-      id: true,
-      content: true,
-      createdAt: true,
+    data: {
+      content,
     },
   });
-  if (!comment) {
-    throw new customError("comment not found", 404);
-  }
+
   res.status(200).json(comment);
 });
