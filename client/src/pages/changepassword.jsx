@@ -31,7 +31,7 @@ const ChangePassword = () => {
       };
 
       const response = await Axios.post(
-        "http://localhost:8000/api/user/changepassword",
+        "https://blog-server-au7i.onrender.com/api/user/changepassword",
         formData,
         { headers }
       );

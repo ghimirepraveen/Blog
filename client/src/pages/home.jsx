@@ -17,7 +17,7 @@ const Home = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/post/getall",
+          "https://blog-server-au7i.onrender.com/api/post/getall",
           {
             params: { page: currentPage, limit: cardsPerPage },
           }

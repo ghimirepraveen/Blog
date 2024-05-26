@@ -14,7 +14,7 @@ const SearchResults = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/post/searchh`,
+          `https://blog-server-au7i.onrender.com/api/post/searchh`,
           { params: { title: query } }
         );
         setResults(response.data);

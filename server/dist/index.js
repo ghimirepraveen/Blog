@@ -12,7 +12,7 @@ const user_router_1 = __importDefault(require("./router/user.router"));
 const blog_router_1 = __importDefault(require("./router/blog.router"));
 const error_controller_1 = __importDefault(require("./controller/error.controller"));
 const corsOptions = {
-    origin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
+    origin: "https://blog-client-2q4k.onrender.com/",
     credentials: true,
 };
 const app = (0, express_1.default)();

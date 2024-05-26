@@ -11,7 +11,7 @@ import postRouter from "./router/blog.router";
 import errorHandler from "./controller/error.controller";
 
 const corsOptions = {
-  origin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
+  origin: "https://blog-client-2q4k.onrender.com/",
   credentials: true,
 };
 

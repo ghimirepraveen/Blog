@@ -17,7 +17,7 @@ const CardWrapper = ({ post, author }) => {
 
     try {
       const response = await Axios.delete(
-        `http://localhost:8000/api/post/delete/${id}`,
+        `https://blog-server-au7i.onrender.com/api/post/delete/${id}`,
         { headers }
       );
 
