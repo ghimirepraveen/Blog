@@ -7,7 +7,7 @@
     "dev": "tsc && concurrently \"npx tsc --watch\" \"nodemon dist/index.js\"",
     "start": "tsc && node dist/index.js",
     "live": "node dist/index.js",
-    "build": "tsc"
+    "build": "tsc && npx prisma generate"
   },
   "author": "",
   "license": "ISC",

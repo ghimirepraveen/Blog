@@ -10,9 +10,8 @@ import userRouter from "./router/user.router";
 import postRouter from "./router/blog.router";
 import errorHandler from "./controller/error.controller";
 
-dontenv.config();
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
   credentials: true,
 };
 

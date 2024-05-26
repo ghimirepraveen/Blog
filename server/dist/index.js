@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const dotenv_1 = __importDefault(require("dotenv"));
 const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
@@ -12,9 +11,8 @@ const cors_1 = __importDefault(require("cors"));
 const user_router_1 = __importDefault(require("./router/user.router"));
 const blog_router_1 = __importDefault(require("./router/blog.router"));
 const error_controller_1 = __importDefault(require("./controller/error.controller"));
-dotenv_1.default.config();
 const corsOptions = {
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
     credentials: true,
 };
 const app = (0, express_1.default)();
