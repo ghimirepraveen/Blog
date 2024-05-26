@@ -7,7 +7,7 @@
     "install": "concurrently \"cd server && npm install\" \"cd client && npm install\"",
     "client_build": "cd client && npm run build",
     "build": "npm run install && npm run client_build && cd server && npm run build",
-    "start": "cd server && npm run start"
+    "start": "cd server && npm run dev"
   },
   "author": "",
   "license": "ISC",
