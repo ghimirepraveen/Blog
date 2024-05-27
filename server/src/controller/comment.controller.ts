@@ -41,3 +41,48 @@ export const updateComment = catchAsync(async (req: Request, res: Response) => {
 
   res.status(200).json(comment);
 });
+
+export const deleteComment = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const comment = await prisma.comment.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  if (!comment) {
+    throw new customError("comment not found", 404);
+  }
+  if (comment.authorId !== req.user.id) {
+    throw new customError("you are not the author of this comment", 403);
+  }
+  await prisma.comment.delete({
+    where: {
+      id: id,
+    },
+  });
+
+  res.status(204).json();
+});
+
+export const getComment = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const comment = await prisma.post.findMany({
+    where: {
+      id: id,
+    },
+    select: {
+      comments: {
+        select: {
+          content: true,
+          createdAt: true,
+        },
+      },
+    },
+  });
+
+  if (!comment) {
+    throw new customError("comment not found", 404);
+  }
+  res.status(200).json(comment);
+});
