@@ -5,12 +5,14 @@ import { Link, useNavigate } from "react-router-dom";
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const dropdownRef = useRef(null);
   const debounceTimeoutRef = useRef(null);
   const navigate = useNavigate();
 
   const handleLogoutClick = () => {
     localStorage.removeItem("token");
+    setIsLoggedIn(false);
     navigate("/");
   };
 
@@ -80,6 +82,18 @@ const Navbar = () => {
     }
   };
 
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setIsLoggedIn(!!localStorage.getItem("token"));
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+
   return (
     <nav className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -102,7 +116,7 @@ const Navbar = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search..."
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-4 py-2 border text-center border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </form>
           </div>
@@ -114,32 +128,39 @@ const Navbar = () => {
               <CgProfile size={30} />
             </button>
             {dropdownOpen && (
-              <div className="origin-top-right absolute right-0 mt-36 w-48  rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
-                <button
-                  onClick={handleLoginClick}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full  text-left"
-                >
-                  Login
-                </button>
-                <button
-                  onClick={handleSignupClick}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                >
-                  Sign Up
-                </button>
-                <button
-                  onClick={handleLogoutClick}
-                  className="block px-4 py-2 text-sm  text-gray-700 hover:bg-gray-100 w-full text-left"
-                >
-                  Logout
-                </button>
-                <button
-                  onClick={handleProfile}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left
-                  "
-                >
-                  Profile
-                </button>
+              <div className="origin-top-right absolute right-0 mt-36 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
+                {!isLoggedIn && (
+                  <>
+                    <button
+                      onClick={handleLoginClick}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                    >
+                      Login
+                    </button>
+                    <button
+                      onClick={handleSignupClick}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                    >
+                      Sign Up
+                    </button>
+                  </>
+                )}
+                {isLoggedIn && (
+                  <>
+                    <button
+                      onClick={handleProfile}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                    >
+                      Profile
+                    </button>
+                    <button
+                      onClick={handleLogoutClick}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                    >
+                      Logout
+                    </button>
+                  </>
+                )}
               </div>
             )}
           </div>
