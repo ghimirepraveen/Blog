@@ -56,7 +56,7 @@ const LoginForm = () => {
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
         <h2 className="text-2xl font-bold text-center">Login</h2>
         {loading ? (
-          <Loading />
+          <Loading className="w-full" />
         ) : (
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>

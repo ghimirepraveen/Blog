@@ -9,6 +9,7 @@ import cors from "cors";
 import userRouter from "./router/user.router";
 import postRouter from "./router/blog.router";
 import errorHandler from "./controller/error.controller";
+import commentRouter from "./router/comment.router";
 
 const app = express();
 app.use(express.json());
@@ -21,6 +22,7 @@ app.use(morgan("dev"));
 
 app.use("/api/user", userRouter);
 app.use("/api/post", postRouter);
+app.use("/api/comment", commentRouter);
 
 app.use(errorHandler);
 
