@@ -16,7 +16,7 @@ const AddComment = ({ postId, onCommentAdded }) => {
     setError(null);
     try {
       await axios.post(
-        `https://blog-server-au7i.onrender.com/api/post/${postId}/comment`,
+        `https://blog-server-au7i.onrender.com/api/comment/create/${postId}`,
         { content: newComment }
       );
       setNewComment("");

@@ -6,12 +6,11 @@ const CommentsList = ({ postId }) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   useEffect(() => {
     const fetchComments = async () => {
       try {
         const response = await axios.get(
-          `https://blog-server-au7i.onrender.com/api/post/${postId}/comments`
+          `https://blog-server-au7i.onrender.com/api/comment/getall/${postId}`
         );
         setComments(response.data);
       } catch (err) {
