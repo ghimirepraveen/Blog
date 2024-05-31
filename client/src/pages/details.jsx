@@ -8,21 +8,16 @@ import CommentsList from "../components/listingComment";
 const Detail = () => {
   const { id } = useParams();
   const [card, setCard] = useState(null);
-  const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const postResponse = await axios.get(
+        const response = await axios.get(
           `https://blog-server-au7i.onrender.com/api/post/getbyid/${id}`
         );
-        const commentsResponse = await axios.get(
-          `https://blog-server-au7i.onrender.com/api/comment/getall/${id}`
-        );
-        setCard(postResponse.data);
-        setComments(commentsResponse.data[0].comments);
+        setCard(response.data);
       } catch (err) {
         console.error("Error fetching data:", err);
         setError("Error fetching data. Please try again.");
@@ -34,7 +29,10 @@ const Detail = () => {
   }, [id]);
 
   const handleCommentAdded = (newComment) => {
-    setComments([...comments, newComment]);
+    setCard((prevCard) => ({
+      ...prevCard,
+      comments: [...prevCard.comments, newComment],
+    }));
   };
 
   if (loading) {
@@ -50,7 +48,7 @@ const Detail = () => {
   }
 
   const createdAtDate = new Date(card.createdAt);
-  const formattedCreatedAt = `${createdAtDate.toLocaleDateString()}`;
+  const formattedCreatedAt = createdAtDate.toLocaleDateString();
 
   return (
     <div className="container mx-auto p-4">
@@ -76,7 +74,7 @@ const Detail = () => {
         <div className="p-4">
           <h2 className="text-2xl text-center font-bold mb-2">Comments</h2>
           <AddComment postid={id} onCommentAdded={handleCommentAdded} />
-          <CommentsList comments={comments} />
+          <CommentsList comments={card.comments} />
         </div>
       </div>
     </div>

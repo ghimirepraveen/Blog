@@ -91,6 +91,7 @@ export const getBlog = catchAsync(async (req: Request, res: Response) => {
       comments: {
         select: {
           content: true,
+          createdAt: true,
           author: {
             select: {
               name: true,

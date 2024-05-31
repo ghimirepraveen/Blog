@@ -25,7 +25,7 @@ const AddComment = ({ postid, onCommentAdded }) => {
         { headers }
       );
       setNewComment("");
-      onCommentAdded(response.data); // Pass the new comment to the parent component
+      onCommentAdded(response.data);
     } catch (err) {
       console.error("Error posting comment:", err);
       setError("Error posting comment. Please try again.");

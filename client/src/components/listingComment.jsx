@@ -7,18 +7,23 @@ const CommentsList = ({ comments }) => {
 
   return (
     <div>
-      {comments.map((comment, index) => (
-        <div key={index} className="bg-gray-100 p-2 rounded mb-2">
-          {comment.author && comment.author.name && (
-            <p className="text-xs text-gray-500">{comment.author.name}</p>
-          )}
-          <p> {comment.content}</p>
-          <p className="text-xs text-gray-500">
-            Commented on:
-            {new Date(comment.createdAt).toLocaleDateString()}
-          </p>
-        </div>
-      ))}
+      {comments.map((comment, index) => {
+        console.log("Comment:", comment);
+        console.log("Comment Date:", comment.createdAt);
+
+        return (
+          <div key={index} className="bg-gray-100 p-2 rounded mb-2">
+            {comment.author && comment.author.name && (
+              <p className="text-xs text-gray-500">{comment.author.name}</p>
+            )}
+            <p>{comment.content}</p>
+            <p className="text-xs text-gray-500">
+              Commented on:
+              {new Date(comment.createdAt).toLocaleDateString()}
+            </p>
+          </div>
+        );
+      })}
     </div>
   );
 };
