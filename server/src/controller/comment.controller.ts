@@ -66,33 +66,32 @@ export const deleteComment = catchAsync(async (req: Request, res: Response) => {
 
   res.status(204).json();
 });
+export const getCommentsByPostId = catchAsync(
+  async (req: Request, res: Response) => {
+    const { postid } = req.params;
 
-export const getComment = catchAsync(async (req: Request, res: Response) => {
-  const { postid } = req.params;
-
-  const comment = await prisma.post.findMany({
-    where: {
-      id: postid,
-    },
-    select: {
-      comments: {
-        select: {
-          content: true,
-          createdAt: true,
-          author: {
-            select: {
-              name: true,
+    const post = await prisma.post.findUnique({
+      where: { id: postid },
+      include: {
+        comments: {
+          select: {
+            content: true,
+            createdAt: true,
+            author: {
+              select: {
+                name: true,
+              },
             },
           },
+          orderBy: { createdAt: "desc" },
         },
       },
-    },
+    });
 
-    orderBy: { createdAt: "desc" },
-  });
+    if (!post) {
+      throw new customError("Post not found", 404);
+    }
 
-  if (!comment) {
-    throw new customError("comment not found", 404);
+    res.status(200).json(post.comments);
   }
-  res.status(200).json(comment);
-});
+);

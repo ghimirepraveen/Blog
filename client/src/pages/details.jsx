@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import Loading from "../components/loading";
 import AddComment from "../components/comment";
 import CommentsList from "../components/listingComment";
@@ -8,17 +8,23 @@ import CommentsList from "../components/listingComment";
 const Detail = () => {
   const { id } = useParams();
   const [card, setCard] = useState(null);
+  const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
+        const postResponse = await axios.get(
           `https://blog-server-au7i.onrender.com/api/post/getbyid/${id}`
         );
-        setCard(response.data);
+        const commentsResponse = await axios.get(
+          `https://blog-server-au7i.onrender.com/api/comment/getall/${id}`
+        );
+        setCard(postResponse.data);
+        setComments(commentsResponse.data[0].comments);
       } catch (err) {
+        console.error("Error fetching data:", err);
         setError("Error fetching data. Please try again.");
       }
       setLoading(false);
@@ -26,6 +32,10 @@ const Detail = () => {
 
     fetchData();
   }, [id]);
+
+  const handleCommentAdded = (newComment) => {
+    setComments([...comments, newComment]);
+  };
 
   if (loading) {
     return <Loading />;
@@ -40,7 +50,7 @@ const Detail = () => {
   }
 
   const createdAtDate = new Date(card.createdAt);
-  const formattedCreatedAt = `${createdAtDate.toLocaleDateString()} ${createdAtDate.toLocaleTimeString()}`;
+  const formattedCreatedAt = `${createdAtDate.toLocaleDateString()}`;
 
   return (
     <div className="container mx-auto p-4">
@@ -62,12 +72,11 @@ const Detail = () => {
           />
         </div>
       </div>
-      {/* Comment section */}
       <div className="w-full mx-auto bg-white shadow-md rounded-lg overflow-hidden mt-4">
         <div className="p-4">
           <h2 className="text-2xl text-center font-bold mb-2">Comments</h2>
-          <AddComment postId={id} onCommentAdded={() => setCard({ ...card })} />
-          <CommentsList postId={id} />
+          <AddComment postid={id} onCommentAdded={handleCommentAdded} />
+          <CommentsList comments={comments} />
         </div>
       </div>
     </div>

@@ -67,7 +67,7 @@ export const login = catchAsync(async (req: Request, res: Response) => {
     { id: user.id, email: user.email, name: user.name },
     process.env.JWT_SECRET as string,
     {
-      expiresIn: "1h",
+      expiresIn: "24h",
     }
   );
 
@@ -87,7 +87,7 @@ export const login = catchAsync(async (req: Request, res: Response) => {
       {
         path: "/",
         secure: false,
-        maxAge: 3600,
+        maxAge: 86400,
       }
     )
 
@@ -187,3 +187,5 @@ export const logout = catchAsync(async (req: Request, res: Response) => {
     .clearCookie(process.env.COOKIES_NAME as string)
     .json({ message: "logout success" });
 });
+
+//forget password

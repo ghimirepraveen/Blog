@@ -1,8 +1,7 @@
+import { useState } from "react";
 import axios from "axios";
 
-import { useState } from "react";
-
-const AddComment = ({ postId, onCommentAdded }) => {
+const AddComment = ({ postid, onCommentAdded }) => {
   const [newComment, setNewComment] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -14,14 +13,21 @@ const AddComment = ({ postId, onCommentAdded }) => {
   const handleCommentSubmit = async () => {
     setLoading(true);
     setError(null);
+    const TOKEN = localStorage.getItem("token");
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${TOKEN}`,
+    };
     try {
-      await axios.post(
-        `https://blog-server-au7i.onrender.com/api/comment/create/${postId}`,
-        { content: newComment }
+      const response = await axios.post(
+        `https://blog-server-au7i.onrender.com/api/comment/create/${postid}`,
+        { content: newComment },
+        { headers }
       );
       setNewComment("");
-      onCommentAdded();
+      onCommentAdded(response.data); // Pass the new comment to the parent component
     } catch (err) {
+      console.error("Error posting comment:", err);
       setError("Error posting comment. Please try again.");
     }
     setLoading(false);

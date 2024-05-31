@@ -1,43 +1,21 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Loading from "../components/loading";
+import React from "react";
 
-const CommentsList = ({ postId }) => {
-  const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const response = await axios.get(
-          `https://blog-server-au7i.onrender.com/api/comment/getall/${postId}`
-        );
-        setComments(response.data);
-      } catch (err) {
-        setError("Error fetching comments. Please try again.");
-      }
-      setLoading(false);
-    };
-
-    fetchComments();
-  }, [postId]);
-
-  if (loading) {
-    return <Loading />;
-  }
-
-  if (error) {
-    return <div className="text-red-500">{error}</div>;
+const CommentsList = ({ comments }) => {
+  if (!comments || comments.length === 0) {
+    return <div>No comments yet.</div>;
   }
 
   return (
     <div>
       {comments.map((comment, index) => (
         <div key={index} className="bg-gray-100 p-2 rounded mb-2">
-          <p className="font-bold">{comment.author.name}</p>
-          <p>{comment.content}</p>
+          {comment.author && comment.author.name && (
+            <p className="text-xs text-gray-500">{comment.author.name}</p>
+          )}
+          <p> {comment.content}</p>
           <p className="text-xs text-gray-500">
-            {new Date(comment.createdAt).toLocaleString()}
+            Commented on:
+            {new Date(comment.createdAt).toLocaleDateString()}
           </p>
         </div>
       ))}
