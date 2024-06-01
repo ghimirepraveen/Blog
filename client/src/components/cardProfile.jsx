@@ -23,7 +23,7 @@ const CardWrapper = ({ post, author }) => {
 
       if (response.status === 200) {
         console.log("Post deleted successfully");
-        window.location.reload(); // Reload the page to show the changed data
+        window.location.reload();
       } else {
         console.error("Failed to delete the post", response);
         alert("Failed to delete the post: " + response.statusText);

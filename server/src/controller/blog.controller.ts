@@ -158,7 +158,7 @@ export const deleteBlog = catchAsync(async (req: Request, res: Response) => {
     },
   });
 
-  res.status(204).json("successfully deleted blog");
+  res.status(200).json("successfully deleted blog");
 });
 
 export const searchBlog = catchAsync(async (req: Request, res: Response) => {
@@ -202,10 +202,8 @@ export const searchBlog = catchAsync(async (req: Request, res: Response) => {
       },
     },
   });
-
   if (blogs.length === 0) {
     throw new customError("blog not found", 404);
   }
-
   res.status(200).json(blogs);
 });
