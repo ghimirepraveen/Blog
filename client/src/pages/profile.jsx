@@ -26,7 +26,7 @@ const Profile = () => {
 
       try {
         const response = await axios.get(
-          "https://blog-server-au7i.onrender.com/api/user/update",
+          "https://blog-server-au7i.onrender.com/api/user/me",
           { headers }
         );
         setUser(response.data);
@@ -62,7 +62,7 @@ const Profile = () => {
 
     try {
       const response = await axios.put(
-        "https://blog-server-au7i.onrender.com/api/user/me",
+        "https://blog-server-au7i.onrender.com/api/user/update",
         { name: editedName },
         { headers }
       );
