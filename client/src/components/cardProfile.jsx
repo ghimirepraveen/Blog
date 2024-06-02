@@ -35,7 +35,7 @@ const CardWrapper = ({ post, author }) => {
   };
 
   return (
-    <div className="relative mr-20 mt-4">
+    <div className="relative mr-4 mt-4">
       <Card
         image={post.img}
         title={post.title}

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import CardWrapper from "../components/cardProfile";
 import { Link } from "react-router-dom";
-
 import Loading from "../components/loading";
 
 const Profile = () => {
@@ -27,10 +26,8 @@ const Profile = () => {
 
       try {
         const response = await axios.get(
-          "https://blog-server-au7i.onrender.com/api/user/me",
-          {
-            headers,
-          }
+          "https://blog-server-au7i.onrender.com/api/user/update",
+          { headers }
         );
         setUser(response.data);
         setEditedName(response.data.name);
@@ -85,60 +82,63 @@ const Profile = () => {
   if (!user) {
     return <Loading />;
   }
+
   return (
     <div className="container mx-auto p-4">
-      <div className="flex justify-between">
+      <div className="flex flex-col items-center space-y-4">
         {errorMessage && (
-          <div className="bg-red-100 text-red-700 p-2 mb-4 rounded">
+          <div className="bg-red-100 text-red-700 p-2 mb-4 rounded w-full text-center">
             {errorMessage}
           </div>
         )}
-        <div className="mb-4">
+        <div className="w-full">
           {isEditingName ? (
-            <div className="flex items-center">
+            <div className="flex flex-col items-center space-y-2">
               <input
                 type="text"
                 value={editedName}
                 onChange={handleNameChange}
-                className="border p-2 rounded mr-2"
+                className="border p-2 rounded w-full"
               />
               <button
                 onClick={saveNameChange}
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+                className="bg-blue-500 text-white px-4 py-2 rounded w-full"
               >
                 Save
               </button>
             </div>
           ) : (
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold mr-2">{user.name}</h1>
+            <div className="flex flex-col items-center space-y-2">
+              <h1 className="text-2xl font-bold">{user.name}</h1>
               <button
                 onClick={() => setIsEditingName(true)}
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+                className="bg-blue-500 text-white px-4 py-2 rounded w-full"
               >
                 Edit
               </button>
             </div>
           )}
         </div>
-        <p className="mb-4 mr-9">Email: {user.email}</p>
-      </div>
-      <div>
-        <button className="bg-red-500 text-white px-4 py-2 rounded">
-          <Link to="/changepassword" className="text-sm">
-            Change Password
-          </Link>
-        </button>
-      </div>
-      {user.posts && user.posts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {user.posts.map((post, index) => (
-            <CardWrapper key={index} post={post} author={user.name} />
-          ))}
+        <p className="w-full text-center">Email: {user.email}</p>
+        <div className="w-full">
+          <button className="bg-red-500 text-white px-4 py-2 rounded w-full">
+            <Link to="/changepassword" className="text-sm">
+              Change Password
+            </Link>
+          </button>
         </div>
-      ) : (
-        <p>No posts available.</p>
-      )}
+      </div>
+      <div className="mt-4">
+        {user.posts && user.posts.length > 0 ? (
+          <div className="grid grid-cols-1 gap-4 w-full">
+            {user.posts.map((post, index) => (
+              <CardWrapper key={index} post={post} author={user.name} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-center">No posts available.</p>
+        )}
+      </div>
     </div>
   );
 };

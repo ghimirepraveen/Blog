@@ -13,7 +13,7 @@ const Navbar = () => {
   const handleLogoutClick = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    navigate("/");
+    navigate("/login");
   };
 
   const handleSearch = (query) => {
@@ -106,7 +106,7 @@ const Navbar = () => {
               </h4>
             </Link>
           </div>
-          <div className="flex w-80 items-center">
+          <div className="flex w-80 items-center mx-2 sm:mx-4">
             <form
               onSubmit={handleFormSubmit}
               className="flex w-full max-w-md mx-auto"
@@ -116,7 +116,7 @@ const Navbar = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search..."
-                className="w-full px-4 py-2 border text-center border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-2.5 py-2.5 sm:px-8 sm:py-2 border text-center border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </form>
           </div>

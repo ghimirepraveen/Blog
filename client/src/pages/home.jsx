@@ -47,12 +47,12 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen mx-16 p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen mx-4 p-4">
       {loading ? (
         <Loading />
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 w-full ">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 w-full">
             {cards.map((card, index) => (
               <Link key={index} to={`/detail/${card.id}`}>
                 <Card
