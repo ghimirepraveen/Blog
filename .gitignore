@@ -4,7 +4,16 @@
 node_modules
 /migrations
 /migrations/*
-/server/dist/*
+server/dist/*
+server/node_modules
+server/dist
+server/node_modules/*
+server/dist/*
+server/migrations
+server/migrations/*
+server/.env
+server/.env/*
+
 
 
 
