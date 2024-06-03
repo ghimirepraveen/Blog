@@ -2,7 +2,8 @@
 
 .env
 node_modules
-/migrations
+migrations
+dist/
 /migrations/*
 server/dist/*
 server/node_modules
