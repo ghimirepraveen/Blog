@@ -102,7 +102,7 @@ const Profile = () => {
               />
               <button
                 onClick={saveNameChange}
-                className="bg-blue-500 text-white px-4 py-2 rounded w-full"
+                className="bg-blue-500 text-white px-4 py-2 rounded w-full md:w-1/2 lg:w-1/4"
               >
                 Save
               </button>
@@ -112,25 +112,28 @@ const Profile = () => {
               <h1 className="text-2xl font-bold">{user.name}</h1>
               <button
                 onClick={() => setIsEditingName(true)}
-                className="bg-blue-500 text-white px-4 py-2 rounded w-full"
+                className="bg-blue-500 text-white px-4 py-2 rounded w-full md:w-1/2 lg:w-1/4 flex justify-center space-x-2"
               >
-                Edit
+                Edit Name
               </button>
             </div>
           )}
         </div>
         <p className="w-full text-center">Email: {user.email}</p>
-        <div className="w-full">
-          <button className="bg-red-500 text-white px-4 py-2 rounded w-full">
+        <div className="w-full flex justify-center">
+          <button className="bg-red-500 text-white px-4 py-2 rounded w-full md:w-1/2 lg:w-1/4">
             <Link to="/changepassword" className="text-sm">
               Change Password
             </Link>
           </button>
         </div>
       </div>
+      <div>
+        <p className="text-center text-4xl p-8 font-bold ">Your All Posts:</p>
+      </div>
       <div className="mt-4">
         {user.posts && user.posts.length > 0 ? (
-          <div className="grid grid-cols-1 gap-4 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {user.posts.map((post, index) => (
               <CardWrapper key={index} post={post} author={user.name} />
             ))}

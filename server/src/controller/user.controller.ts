@@ -5,12 +5,15 @@ import catchAsync from "../error/catchAsync";
 import customError from "../error/customError";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { validateEmail } from "../utils/mailValidation";
 
 export const register = catchAsync(async (req: Request, res: Response) => {
   const { email, password, name } = req.body;
   if (!email || !password || !name) {
     throw new customError("email and password are required", 400);
   }
+
+  validateEmail(email);
 
   const userExist = await prisma.users.findUnique({
     where: {
