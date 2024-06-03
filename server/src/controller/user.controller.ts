@@ -6,6 +6,7 @@ import customError from "../error/customError";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { validateEmail } from "../utils/mailValidation";
+import { sendResetPasswordEmail } from "../utils/sendEmail";
 
 export const register = catchAsync(async (req: Request, res: Response) => {
   const { email, password, name } = req.body;
@@ -192,3 +193,61 @@ export const logout = catchAsync(async (req: Request, res: Response) => {
 });
 
 //forget password
+export const forgetPassword = catchAsync(
+  async (req: Request, res: Response) => {
+    const { email } = req.body;
+
+    if (!email) {
+      throw new customError("Email is required", 400);
+    }
+
+    const user = await prisma.users.findUnique({ where: { email } });
+
+    if (!user) {
+      throw new customError("User not found", 404);
+    }
+
+    const token = jwt.sign(
+      { userId: user.id },
+      process.env.JWT_SECRET_KEY as string,
+      { expiresIn: "10m" }
+    );
+
+    await sendResetPasswordEmail(email, token);
+
+    res.status(200).json({ message: "Email sent" });
+  }
+);
+
+export const resetPassword = catchAsync(async (req: Request, res: Response) => {
+  const { token } = req.params;
+  const { newPassword } = req.body;
+
+  if (!newPassword) {
+    throw new customError("New password is required", 400);
+  }
+
+  let decodedToken;
+  try {
+    decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY as string);
+  } catch (err) {
+    throw new customError("Invalid or expired token", 401);
+  }
+
+  const user = await prisma.users.findUnique({
+    where: { id: (decodedToken as any).userId },
+  });
+
+  if (!user) {
+    throw new customError("User not found", 404);
+  }
+
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+  await prisma.users.update({
+    where: { id: user.id },
+    data: { password: hashedPassword },
+  });
+
+  res.status(200).json({ message: "Password updated" });
+});
