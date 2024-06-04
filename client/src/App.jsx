@@ -5,6 +5,8 @@ import SignUpForm from "./pages/signup";
 import LoginForm from "./pages/login";
 import Navbar from "./components/navbar";
 import Footer from "./components/foooter";
+import Forgetpassword from "./components/forgetpassword";
+import Resetpassword from "./components/resetpassword";
 import Home from "./pages/home";
 import Detail from "./pages/details";
 import Profile from "./pages/profile";
@@ -28,6 +30,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/changepassword" element={<ChangePassword />} />
           <Route path="/write" element={<Write />} />
+          <Route path="/forgotpassword" element={<Forgetpassword />} />
+          <Route path="/resetpassword" element={<Resetpassword />} />
           <Route path="*" element={<NotFound />} />
 
           {/* <Route path="/write" element= /> */}
