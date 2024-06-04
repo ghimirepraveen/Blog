@@ -192,7 +192,6 @@ export const logout = catchAsync(async (req: Request, res: Response) => {
     .json({ message: "logout success" });
 });
 
-//forget password
 export const forgetPassword = catchAsync(
   async (req: Request, res: Response) => {
     const { email } = req.body;
