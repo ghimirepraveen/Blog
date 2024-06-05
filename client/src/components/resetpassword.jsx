@@ -1,8 +1,119 @@
-const resetpassword = () => {
+import { useState } from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
+import Loading from "./loading";
+
+const Resetpassword = () => {
+  const { token } = useParams();
+  const navigate = useNavigate();
+  const [backendError, setBackendError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState({
+    newPassword: "",
+    verifiedPassword: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setBackendError(null);
+    setMessage("");
+
+    if (formData.newPassword !== formData.verifiedPassword) {
+      setBackendError("Passwords do not match");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/user/resetpassword/${token}`,
+        formData
+      );
+      console.log("Response from the server:", response.data);
+
+      setMessage(
+        "Your password has been successfully reset. You can now log in with your new password."
+      );
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
+    } catch (error) {
+      if (error.response) {
+        const backendErrorMessage =
+          error.response.data?.error || "An error occurred";
+        console.log("Backend error:", backendErrorMessage);
+        setBackendError(backendErrorMessage);
+      } else {
+        setBackendError("An error occurred while submitting the form");
+      }
+
+      console.error("Error submitting the form", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div>
-      <h1>Reset Password</h1>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
+        <h2 className="text-2xl font-bold text-center">Reset Password</h2>
+        {loading ? (
+          <Loading className="w-full" />
+        ) : (
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                New Password
+              </label>
+              <input
+                type="password"
+                name="newPassword"
+                value={formData.newPassword}
+                onChange={handleChange}
+                required
+                className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Confirm New Password
+              </label>
+              <input
+                type="password"
+                name="verifiedPassword"
+                value={formData.verifiedPassword}
+                onChange={handleChange}
+                required
+                className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+            <div>
+              <button
+                type="submit"
+                className="w-full px-4 py-2 font-bold text-white bg-indigo-600 rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Reset Password
+              </button>
+            </div>
+          </form>
+        )}
+        {message && <p className="text-center text-green-400">{message}</p>}
+        {backendError && (
+          <div className="text-red-500 text-sm mt-4">Error: {backendError}</div>
+        )}
+      </div>
     </div>
   );
 };
-export default resetpassword;
+
+export default Resetpassword;

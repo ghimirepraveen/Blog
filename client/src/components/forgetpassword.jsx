@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import Loading from "./loading";
 
 const Forgetpassword = () => {
@@ -24,7 +23,7 @@ const Forgetpassword = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "https://blog-server-au7i.onrender.com/api/user/forgotpassword",
+        "http://localhost:8000/api/user/forgotpassword",
         formData
       );
 
@@ -82,7 +81,7 @@ const Forgetpassword = () => {
             </div>
           </form>
         )}
-        {message && <p>{message}</p>}
+        {message && <p className="text-center text-green-400">{message}</p>}
 
         {backendError && (
           <div className="text-red-500 text-sm mt-4">Error: {backendError}</div>

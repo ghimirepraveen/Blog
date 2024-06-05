@@ -220,12 +220,15 @@ export const forgetPassword = catchAsync(
 
 export const resetPassword = catchAsync(async (req: Request, res: Response) => {
   const { token } = req.params;
-  const { newPassword } = req.body;
+  const { newPassword, verifiedPassword } = req.body;
 
-  if (!newPassword) {
+  if (!newPassword || !verifiedPassword) {
     throw new customError("New password is required", 400);
   }
 
+  if (newPassword !== verifiedPassword) {
+    throw new customError("Passwords do not match", 400);
+  }
   let decodedToken;
   try {
     decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY as string);

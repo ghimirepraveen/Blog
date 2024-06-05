@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Loading from "../components/loading";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -100,7 +101,9 @@ const LoginForm = () => {
             Sign up
           </Link>
         </p>
-
+        <Link to="/forgotpassword">
+          <p className="text-sm text-center text-red-400">Forget Password</p>
+        </Link>
         {backendError && (
           <div className="text-red-500 text-sm mt-4">Error: {backendError}</div>
         )}

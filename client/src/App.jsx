@@ -31,7 +31,7 @@ function App() {
           <Route path="/changepassword" element={<ChangePassword />} />
           <Route path="/write" element={<Write />} />
           <Route path="/forgotpassword" element={<Forgetpassword />} />
-          <Route path="/resetpassword" element={<Resetpassword />} />
+          <Route path="/resetpassword/:token" element={<Resetpassword />} />
           <Route path="*" element={<NotFound />} />
 
           {/* <Route path="/write" element= /> */}

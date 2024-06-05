@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ChangePassword = () => {
   const [formData, setFormData] = useState({
@@ -95,6 +95,12 @@ const ChangePassword = () => {
             </button>
           </div>
         </form>
+
+        <Link to="/forgotpassword">
+          <p className="text-sm mt-4 text-center text-red-400">
+            Forget Password
+          </p>
+        </Link>
 
         {backendError && (
           <div className="bg-red-100 text-red-700 p-2 mb-4 rounded">
