@@ -4,12 +4,15 @@ import { useParams } from "react-router-dom";
 import Loading from "../components/loading";
 import AddComment from "../components/comment";
 import CommentsList from "../components/listingComment";
+import ShareButtons from "../components/sharebuttion";
+import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
 
 const Detail = () => {
   const { id } = useParams();
   const [card, setCard] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,6 +38,10 @@ const Detail = () => {
     }));
   };
 
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   if (loading) {
     return <Loading />;
   }
@@ -49,10 +56,32 @@ const Detail = () => {
 
   const createdAtDate = new Date(card.createdAt);
   const formattedCreatedAt = createdAtDate.toLocaleDateString();
+  const url = window.location.href;
+  const title = card.title;
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="w-full mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+    <div
+      className={`container mx-auto mt-4 p-4 ${
+        darkMode ? "bg-gray-900 text-white" : "bg-white text-black"
+      }`}
+    >
+      <div className="flex justify-end">
+        <button
+          onClick={toggleDarkMode}
+          className="mb-4 p-2  text-white rounded-full"
+        >
+          {darkMode ? (
+            <MdOutlineDarkMode color="white" size={40} />
+          ) : (
+            <MdDarkMode color="black" size={40} />
+          )}
+        </button>
+      </div>
+      <div
+        className={`w-full mx-auto shadow-md rounded-lg overflow-hidden ${
+          darkMode ? "bg-gray-800" : "bg-white"
+        }`}
+      >
         <div className="w-full h-screen">
           <img
             src={card.img}
@@ -62,15 +91,36 @@ const Detail = () => {
         </div>
         <div className="p-4">
           <h2 className="text-2xl text-center font-bold mb-2">{card.title}</h2>
-          <p className="text-sm text-gray-600 mb-2">by {card.author.name}</p>
-          <p className="text-sm text-gray-600 mb-4">{formattedCreatedAt}</p>
+          <p
+            className={`text-sm mb-2 ${
+              darkMode ? "text-gray-300" : "text-gray-600"
+            }`}
+          >
+            by {card.author.name}
+          </p>
+          <p
+            className={`text-sm mb-4 ${
+              darkMode ? "text-gray-300" : "text-gray-600"
+            }`}
+          >
+            {formattedCreatedAt}
+          </p>
           <div
-            className="text-gray-800"
+            className={`text-gray-800 ${
+              darkMode ? "text-gray-300" : "text-gray-800"
+            }`}
             dangerouslySetInnerHTML={{ __html: card.content }}
           />
+          <div className="m-4">
+            <ShareButtons url={url} title={title} />
+          </div>
         </div>
       </div>
-      <div className="w-full mx-auto bg-white shadow-md rounded-lg overflow-hidden mt-4">
+      <div
+        className={`w-full mx-auto shadow-md rounded-lg overflow-hidden mt-4 ${
+          darkMode ? "bg-gray-800" : "bg-white"
+        }`}
+      >
         <div className="p-4">
           <h2 className="text-2xl text-center font-bold mb-2">Comments</h2>
           <AddComment postid={id} onCommentAdded={handleCommentAdded} />
