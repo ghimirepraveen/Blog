@@ -5,7 +5,7 @@ import SignUpForm from "./pages/Signup";
 import LoginForm from "./pages/Login";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Foooter";
-import Forgetpassword from "./components/ForgetPassword";
+import Forgetpassword from "./components/ForgetPasswordd";
 import Resetpassword from "./components/ResetPassword";
 import Home from "./pages/Home";
 import Detail from "./pages/Details";
