@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Card from "../components/card";
+import Card from "./Card";
 import { MdEditSquare } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { MdVisibility } from "react-icons/md";

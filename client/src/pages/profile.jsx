@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import CardWrapper from "../components/cardProfile";
+import CardWrapper from "../components/CardProfile";
 import { Link } from "react-router-dom";
-import Loading from "../components/loading";
+import Loading from "../components/Loading";
 
 const Profile = () => {
   const [user, setUser] = useState(null);

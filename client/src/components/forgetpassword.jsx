@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import Loading from "./loading";
+import Loading from "./Loading";
 
 const Forgetpassword = () => {
   const [backendError, setBackendError] = useState(null);

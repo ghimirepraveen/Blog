@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import Loading from "../components/loading";
-import AddComment from "../components/comment";
-import CommentsList from "../components/listingComment";
-import ShareButtons from "../components/sharebuttion";
+import Loading from "../components/Loading";
+import AddComment from "../components/Comment";
+import CommentsList from "../components/ListingComment";
+import ShareButtons from "../components/ShareButtion";
 import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
 
 const Detail = () => {
@@ -117,9 +117,7 @@ const Detail = () => {
         </div>
       </div>
       <div
-        className={`w-full mx-auto shadow-md rounded-lg overflow-hidden mt-4 ${
-          darkMode ? "bg-gray-800" : "bg-white"
-        }`}
+        className={`w-full mx-auto shadow-md rounded-lg overflow-hidden mt-4`}
       >
         <div className="p-4">
           <h2 className="text-2xl text-center font-bold mb-2">Comments</h2>
