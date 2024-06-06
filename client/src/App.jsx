@@ -1,18 +1,18 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import SignUpForm from "./pages/signup";
-import LoginForm from "./pages/login";
-import Navbar from "./components/navbar";
-import Footer from "./components/foooter";
-import Forgetpassword from "./components/forgetpassword";
-import Resetpassword from "./components/resetpassword";
-import Home from "./pages/home";
-import Detail from "./pages/details";
-import Profile from "./pages/profile";
-import ChangePassword from "./pages/changepassword";
-import Write from "./pages/write";
-import NotFound from "./pages/notfound";
+import SignUpForm from "./pages/Signup";
+import LoginForm from "./pages/Login";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Foooter";
+import Forgetpassword from "./components/ForgetPassword";
+import Resetpassword from "./components/ResetPassword";
+import Home from "./pages/Home";
+import Detail from "./pages/Details";
+import Profile from "./pages/Profile";
+import ChangePassword from "./pages/ChangePassword";
+import Write from "./pages/Write";
+import NotFound from "./pages/NotFound";
 import SearchResults from "./components/SearchResults";
 
 function App() {
