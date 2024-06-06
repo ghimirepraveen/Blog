@@ -22,6 +22,18 @@ const Footer = () => {
     }
   };
 
+  const handelProfile = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("You need to be logged in to view your profile.");
+      navigate("/login");
+    } else {
+      navigate("/profile");
+    }
+  };
+
   return (
     <footer className="bg-gray-800 text-white py-8 bottom-0 w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between">
@@ -45,7 +57,7 @@ const Footer = () => {
               <Link to="#" onClick={handleWriteBlogClick} className="text-sm">
                 Write a Blog
               </Link>
-              <Link to="/profile" className="text-sm">
+              <Link to="/profile" onClick={handelProfile} className="text-sm">
                 Profile
               </Link>
             </div>

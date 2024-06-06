@@ -117,7 +117,8 @@ const Detail = () => {
         </div>
       </div>
       <div
-        className={`w-full mx-auto shadow-md rounded-lg overflow-hidden mt-4`}
+        className={`w-full mx-auto shadow-md rounded-lg overflow-hidden mt-4
+        ${darkMode ? "text-black" : "text-gray-800"}`}
       >
         <div className="p-4">
           <h2 className="text-2xl text-center font-bold mb-2">Comments</h2>

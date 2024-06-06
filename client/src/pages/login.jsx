@@ -33,8 +33,9 @@ const LoginForm = () => {
       const token = response.data.token;
 
       localStorage.setItem("token", token);
-      window.location.reload();
+
       navigate("/");
+      window.location.reload();
     } catch (error) {
       if (error.response) {
         const backendErrorMessage =
