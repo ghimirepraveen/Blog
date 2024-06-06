@@ -33,6 +33,7 @@ const LoginForm = () => {
       const token = response.data.token;
 
       localStorage.setItem("token", token);
+      window.location.reload();
       navigate("/");
     } catch (error) {
       if (error.response) {
