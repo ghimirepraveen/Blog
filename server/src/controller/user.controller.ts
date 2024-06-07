@@ -253,3 +253,28 @@ export const resetPassword = catchAsync(async (req: Request, res: Response) => {
 
   res.status(200).json({ message: "Password updated" });
 });
+
+export const userPosts = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.params.id;
+
+  const posts = await prisma.users
+    .findMany({
+      where: {
+        id: userId,
+      },
+      select: {
+        posts: {
+          select: {
+            id: true,
+            title: true,
+            content: true,
+            img: true,
+          },
+        },
+      },
+    })
+    .then((user) => {
+      return user[0].posts.length;
+    });
+  res.status(200).json(posts);
+});

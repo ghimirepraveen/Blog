@@ -33,8 +33,6 @@ function App() {
           <Route path="/forgotpassword" element={<Forgetpassword />} />
           <Route path="/resetpassword/:token" element={<Resetpassword />} />
           <Route path="*" element={<NotFound />} />
-
-          {/* <Route path="/write" element= /> */}
         </Routes>
         <Footer />
       </BrowserRouter>

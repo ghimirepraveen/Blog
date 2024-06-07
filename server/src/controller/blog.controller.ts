@@ -28,6 +28,29 @@ export const writeBlog = catchAsync(async (req: Request, res: Response) => {
 
   res.status(201).json(blog);
 });
+export const editBlog = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+  let imgUrl;
+  if (req.file) imgUrl = await uploadPhoto(req.file);
+
+  if (!title || !content) {
+    throw new customError("title and content are required", 400);
+  }
+
+  const blog = await prisma.post.update({
+    where: {
+      id: id,
+    },
+    data: {
+      title,
+      content,
+      img: imgUrl,
+    },
+  });
+
+  res.status(200).json(blog);
+});
 
 export const getBlogs = catchAsync(async (req: Request, res: Response) => {
   const page = parseInt(req.query.page as string, 10) || 1;
