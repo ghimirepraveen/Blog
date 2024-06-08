@@ -4,7 +4,6 @@ import { prisma } from "../model/db";
 import catchAsync from "../error/catchAsync";
 import customError from "../error/customError";
 import uploadPhoto from "../config/cloudnary";
-import auth from "../middleware/auth";
 
 export const writeBlog = catchAsync(async (req: Request, res: Response) => {
   const title = req.body.title as string;
@@ -134,31 +133,6 @@ export const getBlog = catchAsync(async (req: Request, res: Response) => {
     throw new customError("blog not found", 404);
   }
   res.status(200).json(blog);
-});
-
-export const updateBlog = catchAsync(async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const { title, content } = req.body;
-  if (!title || !content) {
-    throw new customError("title and content are required", 400);
-  }
-
-  const blog = await prisma.post.update({
-    where: {
-      id: id,
-    },
-    data: {
-      title,
-      content,
-    },
-  });
-  let data = {
-    title: blog.title,
-    content: blog.content,
-    createdAt: blog.createdAt,
-  };
-
-  res.status(200).json(data);
 });
 
 export const deleteBlog = catchAsync(async (req: Request, res: Response) => {
