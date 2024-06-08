@@ -14,13 +14,13 @@ import ChangePassword from "./pages/ChangePassword";
 import Write from "./pages/Write";
 import NotFound from "./pages/NotFound";
 import SearchResults from "./components/SearchResults";
+import Edit from "./pages/edit";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Navbar />
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/detail/:id" element={<Detail />} />
@@ -30,6 +30,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/changepassword" element={<ChangePassword />} />
           <Route path="/write" element={<Write />} />
+          <Route path="/edit/:id" element={<Edit />} />
           <Route path="/forgotpassword" element={<Forgetpassword />} />
           <Route path="/resetpassword/:token" element={<Resetpassword />} />
           <Route path="*" element={<NotFound />} />

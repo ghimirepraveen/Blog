@@ -19,7 +19,7 @@ blogRouter.get("/searchh", searchBlog);
 blogRouter.use(auth);
 
 blogRouter.post("/create", uploadToMemory.single("image"), writeBlog);
-blogRouter.put("/update/:id", uploadToMemory.single("image"), editBlog);
+blogRouter.put("/edit/:id", uploadToMemory.single("image"), editBlog);
 blogRouter.delete("/delete/:id", deleteBlog);
 
 export default blogRouter;

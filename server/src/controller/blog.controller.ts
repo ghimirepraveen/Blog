@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-
 import { prisma } from "../model/db";
 import catchAsync from "../error/catchAsync";
 import customError from "../error/customError";
