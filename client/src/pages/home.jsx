@@ -26,6 +26,7 @@ const Home = () => {
           ...blog,
           createdAt: format(new Date(blog.createdAt), "PPpp"),
         }));
+
         setCards(formattedBlogs);
         setTotalPages(response.data.totalPages);
       } catch (error) {
