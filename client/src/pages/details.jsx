@@ -66,10 +66,7 @@ const Detail = () => {
       }`}
     >
       <div className="flex justify-end">
-        <button
-          onClick={toggleDarkMode}
-          className="mb-4 p-2  text-white rounded-full"
-        >
+        <button onClick={toggleDarkMode} className="mb-4 p-2 rounded-full">
           {darkMode ? (
             <MdOutlineDarkMode color="white" size={40} />
           ) : (
@@ -93,22 +90,20 @@ const Detail = () => {
           <h2 className="text-2xl text-center font-bold mb-2">{card.title}</h2>
           <p
             className={`text-sm mb-2 ${
-              darkMode ? "text-gray-300" : "text-gray-600"
+              darkMode ? "text-gray-400" : "text-gray-600"
             }`}
           >
             by {card.author.name}
           </p>
           <p
             className={`text-sm mb-4 ${
-              darkMode ? "text-gray-300" : "text-gray-600"
+              darkMode ? "text-gray-400" : "text-gray-600"
             }`}
           >
             {formattedCreatedAt}
           </p>
           <div
-            className={`text-gray-800 ${
-              darkMode ? "text-gray-300" : "text-gray-800"
-            }`}
+            className={`${darkMode ? "text-gray-100" : "text-gray-800"}`}
             dangerouslySetInnerHTML={{ __html: card.content }}
           />
           <div className="m-4">
@@ -118,7 +113,7 @@ const Detail = () => {
       </div>
       <div
         className={`w-full mx-auto shadow-md rounded-lg overflow-hidden mt-4
-        ${darkMode ? "text-black" : "text-gray-800"}`}
+        ${darkMode ? "bg-gray-800 text-black" : "bg-white text-gray-800"}`}
       >
         <div className="p-4">
           <h2 className="text-2xl text-center font-bold mb-2">Comments</h2>
