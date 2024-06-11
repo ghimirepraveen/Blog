@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import Loading from "../components/loading";
 import AddComment from "../components/comment";
 import CommentsList from "../components/listingComment";
-import ShareButtons from "../components/ShareButton";
+import ShareButtons from "../components/sharebuttion";
 import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
 
 const Detail = () => {
