@@ -1,9 +1,20 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import Card from "../components/card";
 import Loading from "../components/loading";
+
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  };
+  return date.toLocaleDateString(undefined, options);
+};
 
 const Home = () => {
   const [cards, setCards] = useState([]);
@@ -24,7 +35,7 @@ const Home = () => {
         );
         const formattedBlogs = response.data.blogs.map((blog) => ({
           ...blog,
-          createdAt: format(new Date(blog.createdAt), "PPpp"),
+          createdAt: formatDate(blog.createdAt),
         }));
 
         setCards(formattedBlogs);
