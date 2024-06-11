@@ -1,5 +1,3 @@
-// src/components/ShareButtons.js
-import React from "react";
 import {
   FacebookShareButton,
   FacebookMessengerShareButton,

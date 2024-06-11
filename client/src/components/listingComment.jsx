@@ -1,5 +1,3 @@
-import React from "react";
-
 const CommentsList = ({ comments }) => {
   if (!comments || comments.length === 0) {
     return <div>No comments yet.</div>;

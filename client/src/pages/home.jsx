@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
-import Card from "../components/Card";
-import Loading from "../components/Loading";
+import Card from "../components/card";
+import Loading from "../components/loading";
 
 const Home = () => {
   const [cards, setCards] = useState([]);

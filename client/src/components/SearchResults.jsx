@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import Card from "./Card";
-import Loading from "./Loading";
+import Card from "./card";
+import Loading from "./loading";
 
 const SearchResults = () => {
   const { query } = useParams();

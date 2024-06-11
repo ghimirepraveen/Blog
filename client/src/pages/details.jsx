@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import Loading from "../components/Loading";
-import AddComment from "../components/Comment";
-import CommentsList from "../components/ListingComment";
+import Loading from "../components/loading";
+import AddComment from "../components/comment";
+import CommentsList from "../components/listingComment";
 import ShareButtons from "../components/ShareButton";
 import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
 

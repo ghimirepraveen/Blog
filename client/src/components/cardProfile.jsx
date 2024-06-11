@@ -1,9 +1,7 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import Card from "./Card";
-import { MdEditSquare } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
-import { MdVisibility } from "react-icons/md";
+import Card from "./card";
+import { MdEditSquare, MdDelete, MdVisibility } from "react-icons/md";
+
 import Axios from "axios";
 
 const CardWrapper = ({ post, author }) => {
