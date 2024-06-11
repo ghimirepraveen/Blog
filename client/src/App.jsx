@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import SignUpForm from "./pages/Signup";
+import SignUpForm from "./pages/signup";
 import LoginForm from "./pages/Login";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Foooter";
