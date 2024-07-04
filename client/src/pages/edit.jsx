@@ -25,7 +25,7 @@ const Edit = () => {
       const fetchBlog = async () => {
         try {
           const response = await axios.get(
-            `https://blog-server-au7i.onrender.com/api/post/getbyid/${id}`
+            `https://blog-server1.onrender.com/api/post/getbyid/${id}`
           );
           const { title, content, img } = response.data;
           setTitle(title);
@@ -76,7 +76,7 @@ const Edit = () => {
 
     try {
       const response = await axios.put(
-        `https://blog-server-au7i.onrender.com/api/post/edit/${id}`,
+        `https://blog-server1.onrender.com/api/post/edit/${id}`,
         formData,
         { headers: { ...headers, "Content-Type": "multipart/form-data" } }
       );

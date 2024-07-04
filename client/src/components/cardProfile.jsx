@@ -5,6 +5,7 @@ import { MdEditSquare, MdDelete, MdVisibility } from "react-icons/md";
 import Axios from "axios";
 
 const CardWrapper = ({ post, author }) => {
+  const apikey = process.env.API_Key;
   const handleDelete = async (id) => {
     const TOKEN = localStorage.getItem("token");
 
@@ -15,7 +16,7 @@ const CardWrapper = ({ post, author }) => {
 
     try {
       const response = await Axios.delete(
-        `https://blog-server-au7i.onrender.com/api/post/delete/${id}`,
+        `https://blog-server1.onrender.com/api/post/delete/${id}`,
         { headers }
       );
 

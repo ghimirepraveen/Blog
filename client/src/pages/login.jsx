@@ -25,7 +25,7 @@ const LoginForm = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "https://blog-server-au7i.onrender.com/api/user/login",
+        "https://blog-server1.onrender.com/api/user/login",
         formData
       );
 

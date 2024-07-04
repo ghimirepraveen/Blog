@@ -18,7 +18,7 @@ const Detail = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://blog-server-au7i.onrender.com/api/post/getbyid/${id}`
+          `https://blog-server1.onrender.com/api/post/getbyid/${id}`
         );
         setCard(response.data);
       } catch (err) {

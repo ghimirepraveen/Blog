@@ -59,7 +59,7 @@ const Write = () => {
 
     try {
       const response = await axios.post(
-        "https://blog-server-au7i.onrender.com/api/post/create",
+        "https://blog-server1.onrender.com/api/post/create",
         formData,
         { headers: { ...headers, "Content-Type": "multipart/form-data" } }
       );

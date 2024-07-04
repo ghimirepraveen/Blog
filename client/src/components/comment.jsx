@@ -20,7 +20,7 @@ const AddComment = ({ postid, onCommentAdded }) => {
     };
     try {
       const response = await axios.post(
-        `https://blog-server-au7i.onrender.com/api/comment/create/${postid}`,
+        `https://blog-server1.onrender.com/api/comment/create/${postid}`,
         { content: newComment },
         { headers }
       );

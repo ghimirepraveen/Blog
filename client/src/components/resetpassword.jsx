@@ -36,7 +36,7 @@ const Resetpassword = () => {
 
     try {
       const response = await axios.post(
-        `https://blog-server-au7i.onrender.com/api/user/resetpassword/${token}`,
+        `https://blog-server1.onrender.com/api/user/resetpassword/${token}`,
         formData
       );
       console.log("Response from the server:", response.data);

@@ -77,7 +77,7 @@ const SignUpForm = () => {
     if (isValid) {
       try {
         const response = await axios.post(
-          "https://blog-server-au7i.onrender.com/api/user/register",
+          "https://blog-server1.onrender.com/api/user/register",
           formData
         );
 
