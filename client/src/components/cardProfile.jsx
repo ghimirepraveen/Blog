@@ -5,7 +5,6 @@ import { MdEditSquare, MdDelete, MdVisibility } from "react-icons/md";
 import Axios from "axios";
 
 const CardWrapper = ({ post, author }) => {
-  const apikey = process.env.API_Key;
   const handleDelete = async (id) => {
     const TOKEN = localStorage.getItem("token");
 

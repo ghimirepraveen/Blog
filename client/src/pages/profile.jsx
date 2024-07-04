@@ -18,7 +18,6 @@ const Profile = () => {
         setErrorMessage("No token found. Please log in.");
         return;
       }
-
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${TOKEN}`,
